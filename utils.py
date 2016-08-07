@@ -63,6 +63,10 @@ def has_been_renamed(town, history):
     return (int(history['MOD']) in (120, 331)
             and history['NCCOFF'] != town[0]['NCCENR'])
 
+def has_been_deleted(town, history):
+    """Return `True` in case of a deletion."""
+    return (int(history['MOD']) == 300)
+
 
 def has_ancestor(town, towns, history):
     """Return `True` in case of a merge with a different name."""
@@ -136,6 +140,11 @@ def restablish_town(town, towns, history):
     if history['COMECH'] not in current['ANCESTORS']:
         current['ANCESTORS'].append(history['COMECH'])
 
+def delete_town(town, history):
+    """Delete a town."""
+    current = town[0]
+    current['END_DATE'] = history['EFF']
+    current['DELETED'] = True
 
 def compute_name(town):
     """Return the `town` name with optional article."""
