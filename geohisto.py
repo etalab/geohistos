@@ -15,7 +15,7 @@ from utils import (
     convert_date, convert_leg, compute_name, compute_population,
     has_been_hard_renamed, add_same_ancestor, has_been_renamed,
     add_ancestor, has_ancestor, has_changed_county, add_neighbor,
-    has_been_restablished, restablish_town
+    has_been_restablished, has_been_deleted, restablish_town, delete_town
 )
 
 
@@ -33,6 +33,7 @@ def load_towns_from(filename):
             town['NEIGHBORS'] = []
             town['START_DATE'] = START_DATE
             town['END_DATE'] = END_DATE
+            town['DELETED'] = False
             if actual == 9:  # Cantonal fraction.
                 continue  # Skip for the moment.
             # Beware that the `DEP` + `COM` combination is not unique,
@@ -66,6 +67,8 @@ def compute_history_from(filename, towns):
                 add_neighbor(town, towns, history)
             elif has_been_restablished(town, history):
                 restablish_town(town, towns, history)
+            elif has_been_deleted(town, history):
+                delete_town(town, history)
     return towns
 
 
@@ -105,7 +108,7 @@ def write_results_on(filename, towns, populations):
         for id, town in sorted(towns.items()):
             current = town[0]
             # Root elements are the one still in use, skip others.
-            if not current['END_DATE'] == END_DATE:
+            if not current['DELETED'] and current['END_DATE'] != END_DATE:
                 # if current['ACTUAL'] != '1':
                 #     print(current)
                 continue
