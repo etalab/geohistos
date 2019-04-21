@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 11.0.0 — Not published yet
+
+* Use COG 2018 (previously 2017) from INSEE as source.
+
 ## 10.0.2 - 2017-12-01
 
 * Handle special case of Mauvezin-sur-Gupie, fix #59

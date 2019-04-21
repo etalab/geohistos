@@ -16,7 +16,7 @@ from .utils import (
 log = logging.getLogger(__name__)
 
 
-def load_towns(filename='sources/France2017.txt'):
+def load_towns(filename='sources/France2018.txt'):
     """
     Load all towns from `filename` into an OrderedDict of `Town`s namedtuples.
 
@@ -49,7 +49,7 @@ def load_towns(filename='sources/France2017.txt'):
     return towns
 
 
-def load_history(filename='sources/historiq2017.txt'):
+def load_history(filename='sources/historiq2018.txt'):
     """Load all towns from `filename` into a list of `Record`s."""
     log.info('Loading history')
     history = []
